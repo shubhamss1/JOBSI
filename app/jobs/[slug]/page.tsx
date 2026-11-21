@@ -17,8 +17,8 @@ async function getJob(slug: string) {
   const entries: BloggerEntry[] = data?.feed?.entry ?? [];
   return entries.find((entry) => {
     const url = entry.link?.find((link) => link.rel === "alternate")?.href ?? "";
-    return url.replace(/\\/$/, "").split("/").pop() === slug;
-  }) ?? null;
+return url.replace(/\/$/, "").split("/").pop() === slug;
+      }) ?? null;
 }
 
 function plainText(html: string) {
