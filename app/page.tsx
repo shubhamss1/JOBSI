@@ -17,8 +17,9 @@ async function getJobs(): Promise<Job[]> {
       const plain = content.replace(/<[^>]*>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
       return {
         title: entry.title?.$t ?? "Job opportunity",
-        url: alternate?.href ?? "https://jobsiind.blogspot.com",\n        slug: (alternate?.href ?? "").replace(/\\/$/, "").split("/").pop() ?? "",
-        published: entry.published?.$t ?? "",
+url: alternate?.href ?? "https://jobsiind.blogspot.com",
+slug: (alternate?.href ?? "").replace(/\/$/, "").split("/").pop() ?? "",
+                published: entry.published?.$t ?? "",
         labels: (entry.category ?? []).map((item: any) => item.term),
         summary: plain.slice(0, 180)
       };
