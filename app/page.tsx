@@ -1,5 +1,3 @@
-import { headers } from "next/headers";
-
 type Job = { title: string; url: string; slug: string; published: string; labels: string[]; summary: string };
 
 async function getJobs(): Promise<Job[]> {
@@ -17,10 +15,15 @@ async function getJobs(): Promise<Job[]> {
       const plain = content.replace(/<[^>]*>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
       return {
         title: entry.title?.$t ?? "Job opportunity",
-url: alternate?.href ?? "https://jobsiind.blogspot.com",
-slug: (alternate?.href ?? "").replace(/\/$/, "").split("/").pop() ?? "",
-        
-                published: entry.published?.$t ?? "",
+        url: alternate?.href ?? "https://jobsiind.blogspot.com",
+        slug: (() => {
+          try {
+            return new URL(alternate?.href ?? "https://jobsiind.blogspot.com").pathname.split("/").filter(Boolean).pop() ?? "";
+          } catch {
+            return "";
+          }
+        })(),
+        published: entry.published?.$t ?? "",
         labels: (entry.category ?? []).map((item: any) => item.term),
         summary: plain.slice(0, 180)
       };
