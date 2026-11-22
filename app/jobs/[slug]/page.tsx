@@ -24,7 +24,7 @@ return cleanUrl.split("/").pop() === slug;
 
 function plainText(html: string) {
   return html
-    .replace(/<\\/(p|div|h[1-6]|li|br)>/gi, "\\n")
+    .replace(/<\/(p|div|h[1-6]|li|br)>/gi, "\n")
     .replace(/<[^>]*>/g, "")
     .replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&")
